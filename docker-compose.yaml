@@ -1,0 +1,56 @@
+version: "3.3"
+
+networks:
+  network:
+    ipam:
+      driver: default
+      config:
+        - subnet: "177.8.0.0/16"
+services:
+  web:
+    build:
+      context: ./
+      dockerfile: ./dockerfile_web
+    restart: always
+    ports:
+      - "9528:9528"
+    depends_on:
+      - server
+    command: ["nginx-debug", "-g", "daemon off;"]
+    networks:
+      network:
+        ipv4_address: 177.8.0.11
+  server:
+    build:
+      context: ./
+      dockerfile: ./dockerfile_server
+    restart: always
+    ports:
+      - "9317:9317"
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    networks:
+      network:
+        ipv4_address: 177.8.0.12
+  mysql:
+    build:
+      context: ./
+      dockerfile: ./dockerfile_mysql
+    restart: always
+    ports:
+      - "13306:3306" # host物理直接映射端口为13306
+    volumes:
+      - .docker-compose/mysql/initdb.d:/docker-entrypoint-initdb.d
+      - cloud_auto:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: "cloud_auto" # 初始化启动时要创建的数据库的名称
+      MYSQL_ROOT_PASSWORD: "BDQp9dDzGn5lnZmzNPILRrGupWwR0dBF" # root管理员用户密码
+    networks:
+      network:
+        ipv4_address: 177.8.0.13
+
+volumes:
+  cloud_auto:
+    driver: local

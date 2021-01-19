@@ -7,7 +7,7 @@
     "experimentalDecorators": true,
     "target": "es6",
     "sourceMap": false,
-    "outDir": "./",
+    "outDir": "./dist",
     "baseUrl": "./",
     "paths": {
       "@/*":[

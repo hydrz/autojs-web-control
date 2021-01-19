@@ -43,7 +43,7 @@ export class DeviceManager {
 
     WebSocketManager.getInstance().addClientStatusChangeListener((client, status) => {
       if (status === 'open' && client.type === 'device') {
-        WebSocketManager.getInstance().sendMessage(client, { type: 'hello', data: { server_version: 2 } });
+        WebSocketManager.getInstance().sendMessage(client, { type: 'hello', data: '连接成功' });
       }
     });
 
