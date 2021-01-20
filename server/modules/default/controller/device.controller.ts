@@ -49,7 +49,7 @@ export class Device {
   async remove_device(@Body() body: any) {
     const device = await DeviceModel.getById(body.device_id);
     await DeviceModel.deleteById(body.device_id);
-    DeviceManager.getInstance().disconnectDeviceByIp(device.ip);
+    DeviceManager.getInstance().disconnectDeviceByName(device.name);
     return ResultUtils.success();
   }
 
@@ -60,7 +60,7 @@ export class Device {
   })
   async disconnect_device(@Body() body: any) {
     const device = await DeviceModel.getById(body.device_id);
-    DeviceManager.getInstance().disconnectDeviceByIp(device.ip);
+    DeviceManager.getInstance().disconnectDeviceByName(device.name);
     return ResultUtils.success();
   }
 
