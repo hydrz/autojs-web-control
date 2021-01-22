@@ -3,8 +3,7 @@ FROM node:12.16.1
 WORKDIR /var/www/
 COPY web/ .
 
-RUN npm install -g cnpm --registry=https://registry.npm.taobao.org
-RUN cnpm install || npm install
+RUN npm install --registry=https://registry.npm.taobao.org
 RUN npm run build:prod
 
 FROM nginx:alpine
