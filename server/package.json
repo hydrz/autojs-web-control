@@ -7,8 +7,9 @@
     "start": "nodemon ./modules/default/main.ts",
     "build": "tsc -p tsconfig.build.json",
     "clean": "ts-clean",
-    "lint": "tslint --fix -p tsconfig.json -c tslint.json"
-  },
+    "lint": "tslint --fix -p tsconfig.json -c tslint.json",
+    "serve": "node ./modules/default/main.js"
+ },
   "_moduleAliases": {
     "@": "."
   },
